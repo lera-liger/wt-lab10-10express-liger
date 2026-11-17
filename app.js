@@ -34,7 +34,7 @@ app.get("/api/db-test", async (req, res) => {
 app.get("/api/students", async (req, res) => {
     try {
         const result = await pool.query(
-            `SELECT "Id", "FullName", "Specialty", "Course", "AverageGrade", "IsEnrolled", "CreatedAt" 
+            `SELECT "Id", "FullName", "Specialty", "Course", "AverageGrade", "IsEnrolled" 
              FROM "Students" 
              ORDER BY "Id"`
         );
@@ -75,8 +75,8 @@ app.post("/api/students", async (req, res) => {
         }
 
         const result = await pool.query(
-            `INSERT INTO "Students" ("FullName", "Specialty", "Course", "AverageGrade", "IsEnrolled", "CreatedAt") 
-             VALUES ($1, $2, $3, $4, $5, NOW()) 
+            `INSERT INTO "Students" ("FullName", "Specialty", "Course", "AverageGrade", "IsEnrolled") 
+             VALUES ($1, $2, $3, $4, $5) 
              RETURNING *`,
             [fullName, specialty, course, averageGrade, isEnrolled || false]
         );
